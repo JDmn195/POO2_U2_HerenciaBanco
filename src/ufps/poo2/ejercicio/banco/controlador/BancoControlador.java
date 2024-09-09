@@ -30,7 +30,7 @@ public class BancoControlador {
         Account cuenta = banco.buscarCuenta(accnum);
         banco.depositarCuenta(cuenta, saldo);
         if(tipo=='A') frame.getTaMensajes().append("Se abrió cuenta de Ahorros num: "+accnum+" con saldo: "+saldo+"\n");
-        else frame.getTaMensajes().append("Se abrió cuenta Corriengte num: "+accnum+" con saldo: "+saldo+"\n");
+        else frame.getTaMensajes().append("Se abrió cuenta Corriente num: "+accnum+" con saldo: "+saldo+"\n");
         
     }
 
