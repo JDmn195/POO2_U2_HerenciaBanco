@@ -38,11 +38,11 @@ public class Bank {
 
     }
 
-    public void withdrawAccount(int accnum, int pay) {
+    public void withdrawAccount(int accnum, double pay) {
         buscarCuenta(accnum).withdraw(pay);
     }
 
-    public void payDividend(int accnum, int pay) {
+    public void payDividend(int accnum, double pay) {
         buscarCuenta(accnum).deposit(pay);
 
     }
