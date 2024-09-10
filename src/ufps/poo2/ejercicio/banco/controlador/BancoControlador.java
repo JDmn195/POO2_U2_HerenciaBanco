@@ -4,6 +4,7 @@
  */
 package ufps.poo2.ejercicio.banco.controlador;
 
+import javax.swing.JOptionPane;
 import ufps.poo2.ejercicio.banco.modelo.Account;
 import ufps.poo2.ejercicio.banco.modelo.Bank;
 import ufps.poo2.ejercicio.banco.vista.BancoVista;
@@ -26,11 +27,16 @@ public class BancoControlador {
         char tipo = frame.getRbAhorros().isSelected() ? 'A' : 'C';
         int accnum = Integer.parseInt(frame.getTxtNumeroCuenta().getText());
         double saldo = Double.parseDouble(frame.getTxtSaldoCuenta().getText());
-        banco.openAccount(tipo, accnum);
-        Account cuenta = banco.buscarCuenta(accnum);
-        banco.depositarCuenta(cuenta, saldo);
-        if(tipo=='A') frame.getTaMensajes().append("Se abrió cuenta de Ahorros num: "+accnum+" con saldo: "+saldo+"\n");
-        else frame.getTaMensajes().append("Se abrió cuenta Corriente num: "+accnum+" con saldo: "+saldo+"\n");
+        try {
+            banco.openAccount(tipo, accnum);
+            Account cuenta = banco.buscarCuenta(accnum);
+            banco.depositarCuenta(cuenta, saldo);
+            if(tipo=='A') frame.getTaMensajes().append("Se abrió cuenta de Ahorros "+banco.buscarCuenta(accnum).toString()+"\n");
+            else frame.getTaMensajes().append("Se abrió cuenta Corriente "+banco.buscarCuenta(accnum).toString()+"\n");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }        
+        
         
     }
 
@@ -44,13 +50,18 @@ public class BancoControlador {
     public void aplicarAccion() {
         int accnum = Integer.parseInt(frame.getTxtNumeroCuentaAcciones().getText());
         double valor = Double.parseDouble(frame.getTxtValor().getText());
-        if (frame.getRbDividendos().isSelected()){
-            banco.payDividend(accnum, valor);
-            frame.getTaMensajes().append("Pago de dividendos Cuenta num: "+accnum+" por: $"+valor+"\n");
-        } else {
-            banco.withdrawAccount(accnum, valor);
-            frame.getTaMensajes().append("Retiro a Cuenta num: "+accnum+" por: $"+valor+"\n");
+        try {
+            if (frame.getRbDividendos().isSelected()){
+                banco.payDividend(accnum, valor);
+                frame.getTaMensajes().append("Pago de dividendos por: $"+valor+" a: "+banco.buscarCuenta(accnum).toString()+"\n");
+            } else {
+                banco.withdrawAccount(accnum, valor);
+                frame.getTaMensajes().append("Retiro por: $"+valor+" a: "+banco.buscarCuenta(accnum).toString()+"\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 
     public void cancelarAccion() {
