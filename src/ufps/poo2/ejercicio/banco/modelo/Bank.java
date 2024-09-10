@@ -27,6 +27,7 @@ public class Bank {
     }
 
     public void openAccount(char tipo, int accnum) {
+        if(buscarCuenta(accnum)!=null) throw new RuntimeException("Cuenta ya creada");
         if (tipo == 'C') {
             CurrentAcount c = new CurrentAcount(accnum);
             cuentas.add(c);
@@ -38,7 +39,7 @@ public class Bank {
 
     }
 
-    public void withdrawAccount(int accnum, double pay) {
+    public void withdrawAccount(int accnum, double pay) {      
         buscarCuenta(accnum).withdraw(pay);
     }
 
@@ -74,7 +75,7 @@ public class Bank {
         for(Account cuenta: cuentas)
             if(cuenta.getBalance()<0)
                 letter+=" "+cuenta.getAccountNumber();
-        letter+= " acounts";
+        letter+= " acounts"+"\n";
         return letter;
     }
         
