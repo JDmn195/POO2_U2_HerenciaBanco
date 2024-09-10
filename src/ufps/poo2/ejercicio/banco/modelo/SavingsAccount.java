@@ -19,16 +19,16 @@ public class SavingsAccount extends Account{
     
     @Override
     public void deposit(double sum) {
-		if (sum >= getBalance())
-			super.deposit(sum);
-	}
+        sum+=(getBalance()*interest);
+        super.deposit(sum);
+    }
     
      @Override
     public void withdraw(double sum) {
-		if (sum <= getBalance())
+		if(sum<0) throw new RuntimeException("No se puede retirar negativamente");
+		if (sum <= this.getBalance())
 			super.withdraw(sum);
-		else
-			System.err.println("Account.withdraw(...): " + "cannot withdraw negative amount.");
+                else throw new RuntimeException("No se puede retirar porque sobrepasa el Balance");
 	}
 
     public double getInterest() {
