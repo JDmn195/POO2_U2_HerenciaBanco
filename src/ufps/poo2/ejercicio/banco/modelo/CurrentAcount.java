@@ -18,8 +18,10 @@ public class CurrentAcount extends Account{
     
     @Override
     public void withdraw(double sum) {
+                if(sum<0) throw new RuntimeException("No se puede retirar negativamente");
 		if (sum <= this.getBalance()+limiteDeSobregiro)
 			super.withdraw(sum);
+                else throw new RuntimeException("No se puede retirar porque sobrepasa el Balance y el límite de sobregiro");
  
     }
 	
@@ -29,8 +31,7 @@ public class CurrentAcount extends Account{
     }
 
     public void setLimiteDeSobregiro(int limiteDeSobregiro) {
-        this.limiteDeSobregiro = limiteDeSobregiro;
-        this.limiteDeSobregiro=limiteDeSobregiro;
+        this.limiteDeSobregiro = limiteDeSobregiro;        
     }
     
 }
